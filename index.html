@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="../static/css/shot.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/all.min.css">
+    <link rel="stylesheet" href="../static/css/brands.min.css">
+    <link rel="stylesheet" href="../static/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../static/css/regular.min.css">
+    <link rel="stylesheet" href="../static/css/solid.min.css">
+    <link rel="stylesheet" href="../static/css/svg-with-js.min.css">
+    <link rel="stylesheet" href="../static/css/v4-shims.min.css">
+    <link rel="stylesheet" href="../static/css/v4-shims.min.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/css/font-awesome.css">
+  <script  src="../static/js/all.min.js"></script>
+  <script  src="../static/js/brands.min.js"></script>
+  <script  src="../static/js/fontawesome.min.js"></script>
+  <script  src="../static/js/solid.min.js"></script>
+  <script  src="../static/js/regular.min.js"></script>
+  <script  src="../static/js/v4-shims.min.js"></script>
+  <title>Shottrack</title>
+  </head>
+  <body style="background: #e7e6e4;">
+   <div class="header" id="h">
+   <h1 id="first"><span  class="icon"><i id="button1" class="fas fa-bars" onclick="openNav()"></i></span><b>&nbsp;shot track</b><span><input onkeyup="searchTable()" id="search" type="text" placeholder="search">
+   </span></h1>
+   </div>
+   <div id="container">
+  <div id="mySidebar" class="sidebar">
+
+  <button id="button2">add +</button>
+  <ul id="myUL">
+    <br>
+  <li id="t1">&nbsp;&nbsp;&nbsp;<span class="caret"><i class="fa fa-chevron-circle-right"></i>Assets</span>
+    <ul class="nested">
+      <li>abc</li>
+      <li>abc</li>
+      <li><span class="caret"><i class="fa fa-chevron-circle-right"></i>abc</span>
+        <ul class="nested">
+          <li>abc</li>
+          <li>abc</li>
+          <li><span class="caret"><i class="fa fa-chevron-circle-right"></i>abc</span>
+            <ul class="nested">
+              <li>abc</li>
+              <li>abc</li>
+              <li>abc</li>
+              <li>abc</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li  id="t2">&nbsp;&nbsp;&nbsp;<span class="caret"><i class="fa fa-chevron-circle-right"></i> Shots</span>
+    <ul class="nested">
+      <li>abc</li>
+      <li>abc</li>
+      <li><span class="caret"><i class="fa fa-chevron-circle-right"></i>abc</span>
+        <ul class="nested">
+          <li>abc</li>
+          <li>abc</li>
+          <li><span class="caret"><i class="fa fa-chevron-circle-right"></i>abc</span>
+            <ul class="nested">
+              <li>abc</li>
+              <li>abc</li>
+              <li>abc</li>
+              <li>abc</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+<div id="content">
+<div class ="table-responsive">
+  <table class="table" id="main">
+    <col width="9%">
+    <col width="11%">
+    <col width="13%">
+    <col width="15%">
+    <col width="20%">
+    <col width="20%">
+    <col width="7%">
+    <col width="15%">
+    <thead>
+      <tr class="heading">
+        <th>project</th>
+        <th>thumbnail</th>
+        <th>scope category</th>
+        <th>scope name</th>
+        <th>description</th>
+        <th>SAP</th>
+        <th>status</th>
+        <th>tasks</th>
+      </tr>
+    </thead>
+    <tbody style="background-color:white">
+    {%for a in proj_dict%}
+      <tr>
+        <td>{{a['proj_id']}}</td>
+        <td>{{a['thumbnail']}}</td>
+        <td>{{a['category']}}</td>
+        <td>{{a['name']}}</td>
+        <td>{{a['description']}}</td>
+        <td>{{a['SAP']}}</td>
+        <td>{{a['status']}}</td>
+        <td><span  class="dropbtn"><i id="taskicon" class="fas fa-cogs"></i></span>
+          <div class="dropdown-content">
+    <table class="table" >
+    <col width="10%">
+    <col width="10%">
+    <col width="10%">
+    <col width="8%">
+    <col width="8%">
+    <col width="10%">
+    <col width="12%">
+    <col width="12%">
+    <col width="8%">
+    <col width="10%">
+    <thead>
+    <tr class="heading">
+    <th>scope</th>
+    <th>task</th>
+    <th>assigned</th>
+    <th>emd</th>
+    <th>cmd</th>
+    <th>status</th>
+    <th>latest int version</th>
+    <th>latest client version</th>
+    <th>due</th>
+    <th>notes</th>
+  </tr>
+  </thead>
+       <tbody>
+       <tr  id="{{a['name']}}" ><td colspan="2"><b>No task available.<u>Add</u> tasks?</b></td></tr>
+      {%for b in task_dict%}
+      {%if a['scope_id'] == b['scope_id']%}
+      <script>
+        document.getElementById("{{a['name']}}").style.display="none";
+      </script>
+
+  <tr>
+    <td>{{a['name']}}</td>
+    <td>{{b['task']}}</td>
+    <td>{{b['assigned']}}</td>
+    <td>{{b['emd']}}</td>
+    <td>{{b['cmd']}}</td>
+    <td>{{b['status']}}</td>
+    <td>{{b['intversion']}}</td>
+    <td>{{b['clientversion']}}</td>
+    <td>{{b['due']}}</td>
+    <td>notes data</td>
+  </tr>
+
+      {%endif%}
+      {%endfor%}
+       </tbody>
+  </table>
+
+            <span><button id="button3">add +</button></span>
+  </div>
+        </td>
+      </tr>
+   {%endfor%}
+    </tbody>
+  </table>
+</div>
+</div>
+   </div>
+
+   <script type="text/javascript" src="../static/js/new1.js"></script>
+  <script type="text/javascript" src="../static/js/new2.js"></script>
+  <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../static/js/select.js"></script>
+  <script type="text/javascript" src="../static/js/auto.js"></script>
+
+  <script>
+
+var toggler = document.getElementsByClassName("caret");
+var i;
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active");
+  })};
+var toggler2 = document.getElementsByClassName("dropbtn");
+var j;
+for (j = 0; j < toggler2.length; j++) {
+  toggler2[j].addEventListener("click", function() {
+    this.parentElement.querySelector(".dropdown-content").classList.toggle("active1");
+  })};
+function searchTable() {
+  var input, filter, table, tr, td, i,txtValue,td2,txtValue2,td3,txtValue3;
+  input = document.getElementById("search");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("main");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    td2 = tr[i].getElementsByTagName("td")[3];
+    td3 = tr[i].getElementsByTagName("td")[6];
+    if (td||td2||td3) {
+      txtValue = td.textContent || td.innerText;
+      txtValue2 = td2.textContent || td2.innerText;
+      txtValue3 = td3.textContent || td3.innerText;
+      if ((txtValue.toUpperCase().indexOf(filter) > -1) || (txtValue2.toUpperCase().indexOf(filter) > -1) || (txtValue3.toUpperCase().indexOf(filter) > -1)) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+</script>
+  <script>
+      function filter(){
+      var scope=document.getElementById("s").value;
+      console.log(scope);
+      var x=document.getElementById("p");
+      var project=[];
+      var j=0;
+      for (var i = 0; i < x.options.length; i++) {
+         if(x.options[i].selected == true){
+              project[j]=x.options[i].value;
+              console.log(project[j]);
+              j++;
+          }
+      }
+      if(project[0]=="multiselect-all")
+      project.shift();
+      j=0;
+      var y=document.getElementById("t");
+      var type=[];
+      for (var i = 0; i < y.options.length; i++) {
+         if(y.options[i].selected == true){
+              type[j]=y.options[i].value;
+              console.log(type[j]);
+              j++;
+          }
+      }
+      if(type[0]=="multiselect-all")
+      type.shift();
+        var params={pNames : project,
+        sNames : scope,
+        tNames : type};
+        console.log(params);
+        console.log(JSON.stringify(params));
+        var xhr=new XMLHttpRequest();
+        xhr.open('POST','/note','true');
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        var data = JSON.stringify(params)
+        console.log(data);
+        xhr.send(data);
+          }
+      function openNav() {
+  document.getElementById("button1").className="fas fa-times";
+  document.getElementById("mySidebar").style.width = "300px";
+  document.getElementById("content").style.marginLeft = "300px";
+  document.getElementById("button1").onclick=closeNav;
+}
+function closeNav() {
+  document.getElementById("button1").className="fas fa-bars";
+  document.getElementById("mySidebar").style.width = 0;
+  document.getElementById("content").style.marginLeft = 0;
+  document.getElementById("button1").onclick=openNav;
+}
+  </script>
+
+  </body>
